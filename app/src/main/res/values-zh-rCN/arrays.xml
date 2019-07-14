@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="key_code">
+        　　        <item>返回</item>
+        　　        <item>菜单</item>
+        　　        <item>多任务切换</item>
+        　　        <item>语音助手</item>
+        　　        <item>主页</item>
+    </string-array>
+</resources>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">附加设置</string>
+    <string name="action_settings">设置</string>
+    <string name="follow_me">关注我的微博</string>
+    <string name="follow_me_title">关注我</string>
+    <string name="donate_title">捐赠我</string>
+    <string name="donate_me_summary">打开支付宝或微信捐赠我</string>
+    <string name="about_title">关于</string>
+    <string name="misc_title">杂项</string>
+    <string name="fingerprint_key_title">指纹手势</string>
+    <string name="touch_once">轻触</string>
+    <string name="long_touch">长轻触</string>
+    <string name="swipe_right">右滑</string>
+    <string name="swipe_left">左滑</string>
+    <string name="resolution_restore_summary">还原成2k分辨率</string>
+    <string name="resolution_restore">还原分辨率</string>
+    <string name="follow_me_bili">关注我的bilibili</string>
+    <string name="donate_me_wechat">通过微信支付捐赠我</string>
+    <string name="donate_me_alipay">通过支付宝捐赠我</string>
+    <string name="author">作者</string>
+</resources>
