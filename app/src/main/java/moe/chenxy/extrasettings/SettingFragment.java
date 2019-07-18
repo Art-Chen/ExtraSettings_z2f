@@ -69,6 +69,11 @@ public class SettingFragment extends PreferenceFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (TimeoutException e) {
+                final Snackbar snackbar = Snackbar.make(view, "Get root timeout! Magisk may not run in background.", Snackbar.LENGTH_LONG);
+                View snackbarView = snackbar.getView();
+                ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+                ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+                snackbar.show();
                 e.printStackTrace();
             } catch (RootDeniedException e) {
                 e.printStackTrace();
@@ -104,6 +109,12 @@ public class SettingFragment extends PreferenceFragment {
             AlipayDonate.startAlipayClient(getActivity(), payCode);
         }else{
             //TODO: Show message that Alipay is not installed
+            View view = getView();
+            final Snackbar snackbar = Snackbar.make(view, "Alipay not installed!(未安装支付宝哦~)", Snackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+            snackbar.show();
         }
     }
 
