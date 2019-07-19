@@ -33,6 +33,22 @@
             android:key="resolution"
             android:summary="@string/resolution_restore_summary"
             android:title="@string/resolution_restore" />
+        <androidx.preference.Preference
+            android:key="removeapp"
+            android:summary="@string/remove_app_summary"
+            android:title="@string/remove_app" />
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory
+        android:title="@string/reboot_title"
+        android:layout="@layout/preference_category_widget">
+        <androidx.preference.Preference
+            android:key="recovery"
+            android:title="@string/reboot_recovery" >
+        </androidx.preference.Preference>
+        <androidx.preference.Preference
+            android:key="bootloader"
+            android:title="@string/reboot_bl" >
+        </androidx.preference.Preference>
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory
         android:title="@string/follow_me_title"

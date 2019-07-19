@@ -18,4 +18,9 @@
     <string name="donate_me_wechat">Donate me by Wechat Payment</string>
     <string name="donate_me_alipay">Donate me by Alipay</string>
     <string name="author">Author</string>
+    <string name="reboot_recovery">Reboot to Recovery</string>
+    <string name="reboot_bl">Reboot to Bootloader</string>
+    <string name="reboot_title">Advanced Reboot</string>
+    <string name="remove_app_summary">Remove the Preinstalled app</string>
+    <string name="remove_app">Remove Preinstall App</string>
 </resources>

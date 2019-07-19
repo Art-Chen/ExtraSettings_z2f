@@ -18,4 +18,9 @@
     <string name="donate_me_wechat">通过微信支付捐赠我</string>
     <string name="donate_me_alipay">通过支付宝捐赠我</string>
     <string name="author">作者</string>
+    <string name="reboot_recovery">重启到 Recovery(恢复模式)</string>
+    <string name="reboot_bl">重启到 Bootloader(引导加载程序)</string>
+    <string name="reboot_title">高级重启</string>
+    <string name="remove_app_summary">移除来自我的预先安装软件来获得更好体验(推荐)</string>
+    <string name="remove_app">移除预装应用</string>
 </resources>
