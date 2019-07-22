@@ -1,10 +1,6 @@
 package moe.chenxy.extrasettings;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.didikee.donate.AlipayDonate;
 import android.didikee.donate.WeiXinDonate;
 import android.graphics.BitmapFactory;
@@ -13,24 +9,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.CheckBoxPreference;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-//import android.preference.PreferenceFragment;
 import androidx.preference.PreferenceFragment;
-
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.stericson.RootShell.exceptions.RootDeniedException;
 import com.stericson.RootShell.execution.Command;
-import com.stericson.RootTools.*;
+import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +29,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.concurrent.*;
+import java.util.concurrent.TimeoutException;
+
+//import android.preference.PreferenceFragment;
 
 public class SettingFragment extends PreferenceFragment {
     boolean ifroot;
@@ -216,9 +209,21 @@ public class SettingFragment extends PreferenceFragment {
             final Snackbar snackbar = Snackbar.make(getView(), "Please restart your phone.", Snackbar.LENGTH_LONG);
             View snackbarView = snackbar.getView();
             ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.CYAN);
             snackbar.setAction("Reboot", v -> rebootAdvanced(null));
             snackbar.show();
+            return true;
+        });
+        // nav disable
+        Preference nav = getPreferenceManager()
+                .findPreference("navdisable");
+        nav.setOnPreferenceChangeListener((preference, newValue) -> {
+            if ((boolean) newValue){
+                disableNavBar("1");
+                Toast.makeText(getContext(),"请确保系统设置里全面屏选项为虚拟按键模式！",Toast.LENGTH_LONG).show();
+            } else {
+                disableNavBar("0");
+            }
             return true;
         });
         // donate
@@ -385,16 +390,16 @@ public class SettingFragment extends PreferenceFragment {
                 final Snackbar snackbar = Snackbar.make(view, "App Name is Null!", Snackbar.LENGTH_LONG);
                 View snackbarView = snackbar.getView();
                 ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-                ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+                ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.CYAN);
                 snackbar.show();
             } else {
-                RootTools.remount("/system","rw");
+                //RootTools.remount("/system","rw");
                 RootTools.getShell(true).add(remount);
                 RootTools.getShell(true).add(command);
                 final Snackbar snackbar = Snackbar.make(view, "Done!", Snackbar.LENGTH_LONG);
                 View snackbarView = snackbar.getView();
                 ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-                ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+                ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.CYAN);
                 snackbar.show();
             }
         } catch (IOException e) {
@@ -496,7 +501,7 @@ public class SettingFragment extends PreferenceFragment {
         }
     }
     /**
-     *
+     * 读取对应键值的操作
      * @param keyCode 键值
      * @return 返回对应键值的操作值
      */
@@ -536,6 +541,61 @@ public class SettingFragment extends PreferenceFragment {
             e.printStackTrace();
         }
         return null;
+    }
+    /**
+     * 导航栏的启用与禁用
+     * @param isTrue 类似Bool值，"1"为禁用导航栏 "0"为启用
+     */
+    public void disableNavBar(String isTrue){
+        View view = getView();
+        String set = "setprop qemu.hw.mainkeys "+ isTrue;
+        String rm = "sed -i -e '/qemu.hw.mainkeys=/d' /system/build.prop";
+        String add = "echo qemu.hw.mainkeys=" + isTrue + " >> /system/build.prop";
+        String rwmount = "mount -o rw,remount /system";
+        ifroot = RootTools.isRootAvailable();
+
+        if (!ifroot) {
+            Snackbar snackbar = Snackbar.make(view, "Need Root!", Snackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+            //设置Snackbar的背景色
+            //snackbarView.setBackgroundColor(Color.WHITE);
+            snackbar.show();
+        }
+        Command setc = new Command(0, set);
+        Command rmc = new Command(0, rm);
+        Command addc = new Command(0, add);
+        Command rwmountc = new Command(0, rwmount);
+        try {
+            //RootTools.remount("/vendor","rw");
+            RootTools.getShell(true).add(setc);
+            RootTools.getShell(true).add(rwmountc);
+            RootTools.getShell(true).add(rmc);
+            RootTools.getShell(true).add(addc);
+            final Snackbar snackbar = Snackbar.make(view, "更改将在重启后生效", Snackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.CYAN);
+            snackbar.setAction("重启",v -> {RootTools.restartAndroid();});
+            snackbar.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            final Snackbar snackbar = Snackbar.make(view, "Get root timeout! Magisk may not run in background.", Snackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+            snackbar.show();
+            e.printStackTrace();
+        } catch (RootDeniedException e) {
+            e.printStackTrace();
+            final Snackbar snackbar = Snackbar.make(view, "Please allow me to be root!", Snackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            ((TextView) snackbarView.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+            ((TextView) snackbarView.findViewById(R.id.snackbar_action)).setTextColor(Color.BLUE);
+            snackbar.show();
+        }
     }
 }
 

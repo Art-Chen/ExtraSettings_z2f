@@ -37,6 +37,15 @@
             android:key="removeapp"
             android:summary="@string/remove_app_summary"
             android:title="@string/remove_app" />
+        <androidx.preference.CheckBoxPreference
+            android:key="navdisable"
+            android:summary="@string/disable_nav_bar_summary"
+            android:title="@string/disable_nav_bar" />
+        <androidx.preference.Preference
+            android:title="Moto Mods Manager" >
+            <intent
+                android:action="com.motorola.modservice.ui.action.MAIN"/>
+        </androidx.preference.Preference>
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory
         android:title="@string/reboot_title"

@@ -23,4 +23,6 @@
     <string name="reboot_title">Advanced Reboot</string>
     <string name="remove_app_summary">Remove the Preinstalled app</string>
     <string name="remove_app">Remove Preinstall App</string>
+    <string name="disable_nav_bar">Disable Navigation Bar</string>
+    <string name="disable_nav_bar_summary">Use hardware key only.It can also disable the gesture</string>
 </resources>
