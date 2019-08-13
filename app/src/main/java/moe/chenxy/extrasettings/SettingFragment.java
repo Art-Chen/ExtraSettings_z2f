@@ -1,5 +1,6 @@
 package moe.chenxy.extrasettings;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.didikee.donate.AlipayDonate;
 import android.didikee.donate.WeiXinDonate;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.Surface;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -189,6 +191,7 @@ public class SettingFragment extends PreferenceFragment {
             swiperight.setSummary(entries[index]);
             return true;
         });
+
         // u-touch done
         //resolution restore
         Preference resolution = getPreferenceManager()
@@ -247,7 +250,6 @@ public class SettingFragment extends PreferenceFragment {
             return true;
         });
         // done
-
     }
 
     /**

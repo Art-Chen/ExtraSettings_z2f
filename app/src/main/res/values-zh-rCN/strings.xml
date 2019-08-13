@@ -21,7 +21,7 @@
     <string name="reboot_recovery">重启到 Recovery(恢复模式)</string>
     <string name="reboot_bl">重启到 Bootloader(引导加载程序)</string>
     <string name="reboot_title">高级重启</string>
-    <string name="remove_app_summary">移除来自我的预先安装软件来获得更好体验(推荐)</string>
+    <string name="remove_app_summary">移除来自我的预装软件来获得更好体验(推荐)(最好激活一星期后再删除）</string>
     <string name="remove_app">移除预装应用</string>
     <string name="disable_nav_bar">禁用导航按钮</string>
     <string name="disable_nav_bar_summary">只使用实体按键，并将同时禁用全面屏手势</string>

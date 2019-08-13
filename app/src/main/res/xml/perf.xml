@@ -90,5 +90,12 @@
             android:key="alipay"
             android:title="@string/donate_me_alipay" >
         </androidx.preference.Preference>
+        <androidx.preference.Preference
+            android:key="paypal"
+            android:title="Donate me by PayPal" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=BABBN8MS7U5JL&amp;source=url"/>
+        </androidx.preference.Preference>
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>
